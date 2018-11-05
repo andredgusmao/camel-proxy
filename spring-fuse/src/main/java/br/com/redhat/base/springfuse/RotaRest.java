@@ -11,7 +11,7 @@ public class RotaRest extends RouteBuilder {
 	public void configure() throws Exception {
 		restConfiguration()
 			.host("localhost")
-        	.port("8081") 
+        	.port("{{server.port}}") 
         	.contextPath("api")
         	.enableCORS(true)
 			.component("restlet")
@@ -21,11 +21,19 @@ public class RotaRest extends RouteBuilder {
 		from("rest:get:simple:hello")
 			.to("direct:simple-status");
 		
+		from("rest:get:simple/{id}")
+			.log("${header.id}")
+			.to("direct:simple-chained");
+		
 		from("rest:post:simple:new")
 			.to("direct:simple-post");
 		
 		from("rest:get:simple/basic")
 			.to("direct:simple-basic-enrich");
+		
+		from("rest:post:simple:basic/split")
+			.to("direct:simple-basic-split");
+		
 	}
 
 }

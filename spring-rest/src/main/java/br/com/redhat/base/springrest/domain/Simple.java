@@ -20,6 +20,14 @@ public class Simple implements Serializable {
 	
 	private String value;
 	
+	public Simple() {}
+	
+	public Simple(String key, String value) {
+		super();
+		this.key = key;
+		this.value = value;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -9,8 +9,10 @@ import org.apache.camel.json.simple.JsonArray;
 public class MergeJsonProcessor implements Processor {
 
 	@Override
-	public void process(Exchange ex) throws Exception {
-		JsonArray array = new JsonArray(ex.getIn().getBody(List.class));	
+	public void process(Exchange ex) throws Exception {	
+		List<?> body = ex.getIn().getBody(List.class);
+		JsonArray array = new JsonArray(body);
+		
 		if(ex.getPattern().isOutCapable()) {			
 			ex.getOut().setBody(array);
 		} else {
